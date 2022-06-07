@@ -15,6 +15,17 @@
                      :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])
                      :type "text" :placeholder ""}]]]))
 
+(defn text-input-add [id label]
+  (let [value (re-frame/subscribe [::subs/form id])]
+    [:div.field.has-addons
+     [:div.control
+      [:input       {:class "input"
+                     :value @value
+                     :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])
+                     :type "text" :placeholder ""}]]
+     [:div.control
+       [:a.button.is-info {:on-click #(re-frame/dispatch [::events/save-form])} "Add" ]]]))
+
 (def locations ["Store" "WareHouse 1" "WareHouse 2"])
 
 (defn select-input [id label options]
@@ -27,10 +38,9 @@
         [:option {:value ""} "Please select"]
         (map (fn [o] [:option {:key o :value o} o]) options)]]]]))
 
-(defn main-panel []
-  (let [is-valid? @(re-frame/subscribe [::subs/form-is-valid? [:location :barcode]])]
+
+(defn main-panel []  
     [:div.section
      [select-input :location "Location" locations]     
-     [text-input :barcode "Barcode"]
-     [:button.button.is-primary {:disabled (not is-valid?)
-                                 :on-click #(re-frame/dispatch [::events/save-form])} "Save"]]))
+     [text-input-add :barcode "Barcode"]])     
+     
