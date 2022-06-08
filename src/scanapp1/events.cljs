@@ -19,9 +19,11 @@
 (re-frame/reg-event-db
  ::save-form
  (fn [db]
-   (let [form-data (:form db)
+   (let [form-data (:form db)         
          loc-barcodes (get db :loc-barcodes [])
          updated-loc-barcodes (conj loc-barcodes form-data)]
      (-> db
          (assoc :loc-barcodes updated-loc-barcodes)
-         (dissoc :form)))))
+         (assoc-in [:form :barcode] " ")))))         
+         
+;; get timestamp
