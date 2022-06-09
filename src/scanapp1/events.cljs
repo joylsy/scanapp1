@@ -3,7 +3,7 @@
    [re-frame.core :as re-frame]
    [scanapp1.db :as db]
    [day8.re-frame.tracing :refer-macros [fn-traced]]
-   ))
+   [cljs-time.core :as t]))   
 
 (re-frame/reg-event-db
  ::initialize-db
@@ -19,11 +19,14 @@
 (re-frame/reg-event-db
  ::save-form
  (fn [db]
-   (let [form-data (:form db)         
-         loc-barcodes (get db :loc-barcodes [])
-         updated-loc-barcodes (conj loc-barcodes form-data)]
+   (let [form-data (:form db)                  
+         form-data-timestamp (assoc form-data :timestamp (t/now)) 
+         loc-barcodes (get db :loc-barcodes [])         
+         updated-loc-barcodes (conj loc-barcodes form-data-timestamp)]
      (-> db
+         (js/console.log form-data-timestamp)
          (assoc :loc-barcodes updated-loc-barcodes)
          (assoc-in [:form :barcode] " ")))))         
          
-;; get timestamp
+;; TODO
+;; show the list of items encoded
