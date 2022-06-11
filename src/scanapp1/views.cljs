@@ -5,6 +5,14 @@
    [scanapp1.subs :as subs]
    ))
 
+(defn loc-barcodes-list []
+(let [loc-barcodes1 @(re-frame/subscribe [::subs/barcodes])]
+  [:div
+   [:h1 {:class "title is-4"} "Encoded Barcodes"]
+   [:ul 
+    (map (fn [{:keys [location barcode]}]
+           [:li {:key barcode} (str location " (" barcode ")" )]) loc-barcodes1)]]))
+
 
 (defn text-input [id label]
   (let [value (re-frame/subscribe [::subs/form id])]
@@ -40,7 +48,11 @@
 
 
 (defn main-panel []  
-    [:div.section
-     [select-input :location "Location" locations]     
-     [text-input-add :barcode "Barcode"]])     
+    [:div.columns.is-mobile.is-multiline.is-centered 
+     [:div.column
+      [select-input :location "Location" locations]
+      [text-input-add :barcode "Barcode"]]
+     [:div.column
+      [loc-barcodes-list]]])     
+     
      

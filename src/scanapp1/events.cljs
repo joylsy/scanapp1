@@ -25,7 +25,8 @@
          updated-loc-barcodes (conj loc-barcodes form-data-timestamp)]
      (-> db
          (js/console.log form-data-timestamp)
-         (assoc :loc-barcodes updated-loc-barcodes)
+         (assoc :loc-barcodes updated-loc-barcodes) 
+         (assoc :form form-data)
          (assoc-in [:form :barcode] " ")))))         
          
 ;; TODO

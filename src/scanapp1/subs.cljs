@@ -12,3 +12,7 @@
  (fn [db [_ form-ids]]
    (every? #(get-in db [:form %]) form-ids)))
 
+(re-frame/reg-sub
+ ::barcodes
+ (fn [db]
+   (get db :loc-barcodes [])))
