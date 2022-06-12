@@ -32,7 +32,8 @@
                      :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])
                      :type "text" :placeholder ""}]]
      [:div.control
-       [:a.button.is-primary {:on-click #(re-frame/dispatch [::events/save-form])} "Add" ]]]))
+       [:button.button.is-primary {:type "submit"
+                              :on-click #(re-frame/dispatch [::events/save-form])} "Add" ]]]))
 
 (def locations ["Store" "WareHouse 1" "WareHouse 2"])
 
@@ -48,7 +49,7 @@
 
 
 (defn main-panel []  
-    [:div.columns.is-mobile.is-multiline.is-centered 
+    [:div.section.container.columns.is-mobile.is-multiline.is-centered 
      [:div.column
       [select-input :location "Location" locations]
       [text-input-add :barcode "Barcode"]]

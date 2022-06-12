@@ -20,7 +20,7 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)                  
-         form-data-timestamp (assoc form-data :timestamp (t/now)) 
+         form-data-timestamp (assoc-in form-data [:timestamp] (t/now)) 
          loc-barcodes (get db :loc-barcodes [])         
          updated-loc-barcodes (conj loc-barcodes form-data-timestamp)]
      (-> db
@@ -30,4 +30,5 @@
          (assoc-in [:form :barcode] " ")))))         
          
 ;; TODO
-;; show the list of items encoded
+;; add the items to firebase
+;; presentation of list should come from firebase
