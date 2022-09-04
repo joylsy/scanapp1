@@ -3,8 +3,9 @@
    [reagent.dom :as rdom]
    [re-frame.core :as re-frame]
    [scanapp1.events :as events]
-   [scanapp1.views :as views]
+   [scanapp1.views :as views] 
    [scanapp1.config :as config]
+   [scanapp1.firebase.init :refer [firebase-init]]
    ))
 
 
@@ -21,4 +22,5 @@
 (defn init []
   (re-frame/dispatch-sync [::events/initialize-db])
   (dev-setup)
+  (firebase-init)
   (mount-root))

@@ -3,6 +3,8 @@
    [re-frame.core :as re-frame]
    [scanapp1.events :as events]   
    [scanapp1.subs :as subs]
+   [scanapp1.firebase.auth :as auth]
+   [scanapp1.firebase.db :as fdb]
    ))
 
 (defn loc-barcodes-list []
@@ -49,11 +51,15 @@
 
 
 (defn main-panel []  
+  (let [db-connected? @(re-frame/subscribe [::fdb/realtime-value {:path [:.info :connected]}])]  
+    (if db-connected?
     [:div.section.container.columns.is-mobile.is-multiline.is-centered 
      [:div.column
       [select-input :location "Location" locations]
       [text-input-add :barcode "Barcode"]]
      [:div.column
-      [loc-barcodes-list]]])     
+      [loc-barcodes-list]]]
+     [:div "Loading..."]) 
+    ))
      
      
