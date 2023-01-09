@@ -11,9 +11,10 @@
 (let [loc-barcodes1 @(re-frame/subscribe [::subs/barcodes])]
   [:div
    [:h1 {:class "title is-4"} "Encoded Barcodes"]
-   [:ul 
+   [:div.divScroll
+   [:ul
     (map (fn [{:keys [location barcode]}]
-           [:li {:key barcode} (str location " (" barcode ")" )]) loc-barcodes1)]]))
+           [:li {:key barcode} (str location " (" barcode ")" )]) loc-barcodes1)]]]))
 
 
 (defn text-input [id label]
