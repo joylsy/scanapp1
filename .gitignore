@@ -4,6 +4,9 @@
 /*-init.clj
 /*.log
 
+#firebase
+/src/scanapp1/firebase/init.cljs
+
 # Leiningen
 /.lein-*
 /.nrepl-port
